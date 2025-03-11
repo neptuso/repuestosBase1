@@ -17,11 +17,9 @@ def create_app():
 
     # Importar y registrar modelos y blueprints **dentro de create_app()**
     from app.models import Cliente, Producto, Venta, Presupuesto, MovimientoStock
-    from app.views import main
-    from app.views.clientes import clientes_bp  # Importamos el Blueprint de clientes
 
-    app.register_blueprint(main)
-    app.register_blueprint(clientes_bp)  # Registramos el Blueprint de clientes
+    from app.views.clientes import clientes_bp
+    app.register_blueprint(clientes_bp)
 
     from app.views.productos import productos_bp
     app.register_blueprint(productos_bp)
@@ -29,6 +27,8 @@ def create_app():
     from app.views.proveedores import proveedores_bp
     app.register_blueprint(proveedores_bp)
 
+    from app.views.main import main_bp
+    app.register_blueprint(main_bp)  # Registramos únicamente main_bp
 
     return app
 

@@ -10,15 +10,19 @@ def listar_productos():
     productos = Producto.query.all()
     return render_template('productos/listar.html', productos=productos)
 
+from app.models import Proveedor
+
 @productos_bp.route('/productos/nuevo', methods=['GET', 'POST'])
 def crear_producto():
     form = ProductoForm()
+    form.proveedor_id.choices = [(p.id, p.nombre) for p in Proveedor.query.all()]
     if form.validate_on_submit():
         nuevo_producto = Producto(
             nombre=form.nombre.data,
             categoria=form.categoria.data,
             precio=float(form.precio.data),
-            stock=int(form.stock.data)
+            stock=int(form.stock.data),
+            proveedor_id=form.proveedor_id.data
         )
         db.session.add(nuevo_producto)
         db.session.commit()
@@ -30,11 +34,13 @@ def crear_producto():
 def editar_producto(id):
     producto = Producto.query.get_or_404(id)
     form = ProductoForm(obj=producto)
+    form.proveedor_id.choices = [(p.id, p.nombre) for p in Proveedor.query.all()]
     if form.validate_on_submit():
         producto.nombre = form.nombre.data
         producto.categoria = form.categoria.data
         producto.precio = float(form.precio.data)
         producto.stock = int(form.stock.data)
+        producto.proveedor_id = form.proveedor_id.data
         db.session.commit()
         flash('¡Producto actualizado con éxito!', 'success')
         return redirect(url_for('productos.listar_productos'))

@@ -26,6 +26,9 @@ def create_app():
     from app.views.productos import productos_bp
     app.register_blueprint(productos_bp)
 
+    from app.views.proveedores import proveedores_bp
+    app.register_blueprint(proveedores_bp)
+
 
     return app
 

@@ -34,6 +34,14 @@
             <small class="text-danger">{{ error }}</small>
         {% endfor %}
     </div>
+    <div class="mb-3">
+        {{ form.proveedor_id.label }}
+        {{ form.proveedor_id(class="form-control") }}
+        {% for error in form.proveedor_id.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    
     <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
     <a href="{{ url_for('productos.listar_productos') }}" class="btn btn-secondary">Cancelar</a>
 </form>

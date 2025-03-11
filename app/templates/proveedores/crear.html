@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Crear Proveedor{% endblock %}
+
+{% block content %}
+<h1>Crear Nuevo Proveedor</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.nombre.label }}
+        {{ form.nombre(class="form-control", placeholder="Ingrese el nombre del proveedor") }}
+        {% for error in form.nombre.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.contacto.label }}
+        {{ form.contacto(class="form-control", placeholder="Ingrese el contacto del proveedor (opcional)") }}
+        {% for error in form.contacto.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.telefono.label }}
+        {{ form.telefono(class="form-control", placeholder="Ingrese el teléfono del proveedor (opcional)") }}
+        {% for error in form.telefono.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.direccion.label }}
+        {{ form.direccion(class="form-control", placeholder="Ingrese la dirección del proveedor (opcional)") }}
+        {% for error in form.direccion.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    <a href="{{ url_for('proveedores.listar_proveedores') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,8 +1,8 @@
-"""Agrego modelo proveedores y su relación con productos 
+"""Reiniciar migraciones desde cero
 
-Revision ID: 486b4d3770b8
-Revises: cd7b0048614d
-Create Date: 2025-03-10 18:54:01.309607
+Revision ID: e2420075eb69
+Revises: 
+Create Date: 2025-03-11 10:56:21.119879
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '486b4d3770b8'
-down_revision = 'cd7b0048614d'
+revision = 'e2420075eb69'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -28,7 +28,7 @@ def upgrade():
     )
     with op.batch_alter_table('producto', schema=None) as batch_op:
         batch_op.add_column(sa.Column('proveedor_id', sa.Integer(), nullable=True))
-        batch_op.create_foreign_key(None, 'proveedor', ['proveedor_id'], ['id'])
+        batch_op.create_foreign_key('fk_producto_proveedor', 'proveedor', ['proveedor_id'], ['id'])
 
     # ### end Alembic commands ###
 

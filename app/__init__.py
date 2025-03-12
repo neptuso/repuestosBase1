@@ -30,6 +30,9 @@ def create_app():
     from app.views.main import main_bp
     app.register_blueprint(main_bp)  # Registramos únicamente main_bp
 
+    from app.views.ventas import ventas_bp
+    app.register_blueprint(ventas_bp)
+
     return app
 
 

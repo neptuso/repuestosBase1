@@ -28,3 +28,15 @@ class ProveedorForm(FlaskForm):
     telefono = StringField('Teléfono', validators=[Length(max=20)])
     direccion = StringField('Dirección')
     submit = SubmitField('Guardar')
+
+
+from wtforms import SelectField, IntegerField
+from wtforms.validators import DataRequired, NumberRange
+from flask_wtf import FlaskForm
+
+class VentaForm(FlaskForm):
+    cliente_id = SelectField('Cliente', coerce=int, validators=[DataRequired()])
+    producto_id = SelectField('Producto', coerce=int, validators=[DataRequired()])
+    cantidad = IntegerField('Cantidad', validators=[DataRequired(), NumberRange(min=1)])
+    submit = SubmitField('Registrar Venta')
+

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+<h1>Lista de Ventas</h1>
+<a href="{{ url_for('ventas.crear_venta') }}" class="btn btn-primary mb-3">Nueva Venta</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Total</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for venta in ventas %}
+        <tr>
+            <td>{{ venta.producto.nombre }}</td>
+            <td>{{ venta.cantidad }}</td>
+            <td>{{ venta.precio_unitario }}</td>
+            <td>{{ venta.total }}</td>
+            <td>{{ venta.fecha_hora }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

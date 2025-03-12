@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar Venta{% endblock %}
+
+{% block content %}
+<h1>Registrar Nueva Venta</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.producto_id.label }}
+        {{ form.producto_id(class="form-control") }}
+        {% for error in form.producto_id.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.cantidad.label }}
+        {{ form.cantidad(class="form-control", placeholder="Ingrese la cantidad vendida") }}
+        {% for error in form.cantidad.errors %}
+            <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+    <a href="{{ url_for('ventas.listar_ventas') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

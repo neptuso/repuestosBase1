@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
 
 # db = SQLAlchemy()
@@ -21,15 +22,42 @@ class Producto(db.Model):
     stock = db.Column(db.Integer, default=0)
     proveedor_id = db.Column(db.Integer, db.ForeignKey('proveedor.id'))
     proveedor = db.relationship('Proveedor', backref=db.backref('productos', lazy=True))
+    
+    def reducir_stock(self,cantidad):
+        if cantidad > self.stock:
+            raise ValueError("No hay suficiente sotck disponible.")
+        self.stock -= cantidad
 
 
-# Modelo para Ventas
 class Venta(db.Model):
+    __tablename__ = 'venta'  # Nombre explícito de la tabla, opcional pero recomendado
+
     id = db.Column(db.Integer, primary_key=True)
+    producto_id = db.Column(db.Integer, db.ForeignKey('producto.id'), nullable=False)
     cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'), nullable=False)
-    fecha = db.Column(db.DateTime, nullable=False)
-    total = db.Column(db.Float, nullable=False)
+    cantidad = db.Column(db.Integer, nullable=False)
+    precio_unitario = db.Column(db.Float, nullable=False)
+    fecha_hora = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+    # Relación con Producto
+    producto = db.relationship('Producto', backref=db.backref('ventas', lazy=True))
+
+    # Relación con Cliente
     cliente = db.relationship('Cliente', backref=db.backref('ventas', lazy=True))
+
+    @property
+    def total(self):
+        """
+        Calcula el total de la venta.
+        """
+        return self.cantidad * self.precio_unitario
+
+    def __repr__(self):
+        """
+        Representación legible de la venta.
+        """
+        return f"<Venta {self.id} - Producto: {self.producto.nombre}, Cliente: {self.cliente.nombre}, Total: {self.total}>"
+
 
 # Modelo para Presupuestos
 class Presupuesto(db.Model):

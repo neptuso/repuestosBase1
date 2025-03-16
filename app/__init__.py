@@ -1,9 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from datetime import datetime
+
+
 
 db = SQLAlchemy()
 migrate = Migrate()
+
 
 def create_app():
     app = Flask(__name__)
@@ -32,6 +36,9 @@ def create_app():
 
     from app.views.ventas import ventas_bp
     app.register_blueprint(ventas_bp)
+
+    from app.views.reportes import reportes_bp
+    app.register_blueprint(reportes_bp)
 
     return app
 

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Productos Más Vendidos{% endblock %}
+
+{% block content %}
+<h1>Productos Más Vendidos</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad Vendida</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto[0] }}</td> <!-- Nombre del producto -->
+            <td>{{ producto[1] }}</td> <!-- Total vendido -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

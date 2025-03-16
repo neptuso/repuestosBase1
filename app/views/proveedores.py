@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app import db
 from app.models import Proveedor
-from app.forms import ProveedorForm
+from app.forms.main import ProveedorForm
 
 proveedores_bp = Blueprint('proveedores', __name__)
 

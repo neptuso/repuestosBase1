@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte Diario{% endblock %}
+
+{% block content %}
+<h1>Reporte Diario</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha y Hora</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for venta in ventas %}
+        <tr>
+            <td>{{  venta.fecha_hora.strftime('%d/%m/%Y')  }}</td>
+            <td>{{ venta.producto.nombre }}</td>
+            <td>{{ venta.cantidad }}</td>
+            <td>{{ venta.total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('reportes.reporte_mensual') }}" class="btn btn-primary mt-3">Ver Reporte Mensual</a>
+<div class="mb-3">
+    <a href="{{ url_for('reportes.reporte_diario_pdf') }}" class="btn btn-success">Generar PDF</a>
+    <a href="{{ url_for('reportes.reporte_diario_csv') }}" class="btn btn-primary">Exportar CSV</a>
+</div>
+
+{% endblock %}
